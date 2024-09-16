@@ -1,6 +1,6 @@
 import {z} from "zod"
 import {InputParseError} from "@/src/domains/errors/common";
-import {createTodoUseCase} from "@/src/application/useCases/createTodo.useCase";
+import {createTodoUseCase} from "@/src/application/useCases/todo/createTodo.useCase";
 import {Todo} from "@/src/domains/entities/todo";
 import { startSpan } from "@sentry/nextjs";
 

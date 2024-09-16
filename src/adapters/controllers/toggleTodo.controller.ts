@@ -2,7 +2,7 @@ import {z} from "zod"
 import {InputParseError} from "@/src/domains/errors/common";
 import {Todo} from "@/src/domains/entities/todo";
 import { startSpan } from "@sentry/nextjs";
-import {toggleTodoUseCase} from "@/src/application/useCases/toggleTodo.useCase";
+import {toggleTodoUseCase} from "@/src/application/useCases/todo/toggleTodo.useCase";
 
 const presenter = (data: Todo) => {
   return startSpan({

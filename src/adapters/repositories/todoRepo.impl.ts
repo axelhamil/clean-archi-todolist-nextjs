@@ -4,7 +4,8 @@ import {db} from "@/drizzle";
 import {todos} from "@/drizzle/schemas";
 import {injectable} from "inversify";
 import { eq } from "drizzle-orm";
-import { startSpan } from "@sentry/nextjs";
+import {captureException, startSpan } from "@sentry/nextjs";
+import {DatabaseOperationError} from "@/src/domains/errors/common";
 
 @injectable()
 export class TodoRepoImpl implements ITodoRepo {
@@ -13,6 +14,7 @@ export class TodoRepoImpl implements ITodoRepo {
       name: 'TodoRepo -> create',
       op: "repository",
     }, async () => {
+      try {
       const query = db.insert(todos).values(todo).returning();
       
       const [created] = await startSpan({
@@ -24,6 +26,18 @@ export class TodoRepoImpl implements ITodoRepo {
       }, async () => query.execute());
       
       return created
+      } catch (error) {
+        captureException(error, {
+          level: 'error',
+          tags: {
+            "error.type": "DatabaseOperationError",
+          }
+        });
+        
+        throw new DatabaseOperationError("Error creating todo", {
+          cause: error
+        });
+      }
     })
   }
   
@@ -32,6 +46,7 @@ export class TodoRepoImpl implements ITodoRepo {
       name: 'TodoRepo -> update',
       op: "repository",
     }, async () => {
+      try {
       const query = db.update(todos).set(todo).where(eq(todos.id, todo.id)).returning();
       
       const [updated] = await startSpan({
@@ -43,6 +58,18 @@ export class TodoRepoImpl implements ITodoRepo {
       }, async () => query.execute());
       
       return updated;
+      } catch (error) {
+        captureException(error, {
+          level: 'error',
+          tags: {
+            "error.type": "DatabaseOperationError",
+          }
+        });
+        
+        throw new DatabaseOperationError("Error updating todo", {
+          cause: error
+        });
+      }
     })
   }
   
@@ -51,6 +78,7 @@ export class TodoRepoImpl implements ITodoRepo {
       name: 'TodoRepo -> delete',
       op: "repository",
     }, async () => {
+      try {
       const query = db.delete(todos).where(eq(todos.id, id)).returning({
         id: todos.id
       });
@@ -64,6 +92,18 @@ export class TodoRepoImpl implements ITodoRepo {
       }, async () => query.execute());
       
       return deleted.id;
+      } catch (error) {
+        captureException(error, {
+          level: 'error',
+          tags: {
+            "error.type": "DatabaseOperationError",
+          }
+        });
+        
+        throw new DatabaseOperationError("Error deleting todo", {
+          cause: error
+        });
+      }
     })
   }
   
@@ -93,6 +133,7 @@ export class TodoRepoImpl implements ITodoRepo {
       name: 'TodoRepo -> findAll',
       op: "repository",
     }, async () => {
+      try {
       const query = db.query.todos.findMany({
         where: (todos, {eq}) => eq(todos.userId, userId)
       })
@@ -106,6 +147,18 @@ export class TodoRepoImpl implements ITodoRepo {
       }, async () => query.execute());
    
        return todos || [];
+      } catch (error) {
+        captureException(error, {
+          level: 'error',
+          tags: {
+            "error.type": "DatabaseOperationError",
+          }
+        });
+        
+        throw new DatabaseOperationError("Error fetching todos", {
+          cause: error
+        });
+      }
     })
   }
 }

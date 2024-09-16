@@ -1,7 +1,7 @@
 import {z} from "zod"
 import {InputParseError} from "@/src/domains/errors/common";
 import { startSpan } from "@sentry/nextjs";
-import { deleteTodoUseCase } from "@/src/application/useCases/deleteTodo.useCase";
+import { deleteTodoUseCase } from "@/src/application/useCases/todo/deleteTodo.useCase";
 
 const presenter = (data: string) => {
   return startSpan({

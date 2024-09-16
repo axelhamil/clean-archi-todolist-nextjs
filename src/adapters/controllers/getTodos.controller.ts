@@ -1,4 +1,4 @@
-import {getAllTodosUseCase} from "@/src/application/useCases/getAllTodos.useCase";
+import {getAllTodosUseCase} from "@/src/application/useCases/todo/getAllTodos.useCase";
 import {Todo} from "@/src/domains/entities/todo";
 import { startSpan } from "@sentry/nextjs";
 
