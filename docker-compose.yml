@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:15-alpine
+    hostname: postgres
+    container_name: todo-db
+    restart: always
+    ports:
+      - '5432:5432'
+    volumes:
+      - todo-db:/var/lib/postgresql/data
+    networks:
+      - default
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: todo-db
+
+volumes:
+  todo-db:
