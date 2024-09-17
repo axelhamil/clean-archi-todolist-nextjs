@@ -1,6 +1,6 @@
 import { startSpan } from "@sentry/nextjs";
 
-import { getInjection } from "@/libs/di";
+import { getInjection } from "@/shared/di";
 import { createTodo, Todo } from "@/src/domains/entities/todo";
 import { NotFoundError, UnauthorizedError } from "@/src/domains/errors/common";
 

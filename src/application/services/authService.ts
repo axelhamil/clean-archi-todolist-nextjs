@@ -1,7 +1,7 @@
 import { startSpan } from "@sentry/nextjs";
 
-import { getInjection, SESSION_COOKIE } from "@/libs/di";
-import { env } from "@/libs/env";
+import { getInjection, SESSION_COOKIE } from "@/shared/di";
+import { env } from "@/shared/env";
 import { Cookie } from "@/src/domains/entities/cookie";
 import { Session } from "@/src/domains/entities/session";
 import { User, UserWithoutPassword } from "@/src/domains/entities/user";

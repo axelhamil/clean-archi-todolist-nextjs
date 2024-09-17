@@ -1,7 +1,7 @@
 import { Container } from "inversify";
 
-import { TodoModule } from "@/libs/di/modules/todo.module";
-import { DI_RETURN_TYPES, DI_SYMBOLS } from "@/libs/di/types";
+import { TodoModule } from "@/shared/di/modules/todo.module";
+import { DI_RETURN_TYPES, DI_SYMBOLS } from "@/shared/di/types";
 
 import { AuthModule } from "./modules/auth.module";
 import { UserModule } from "./modules/user.module";

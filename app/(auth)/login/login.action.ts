@@ -6,7 +6,7 @@ import {
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { SESSION_COOKIE } from "@/libs/di";
+import { SESSION_COOKIE } from "@/shared/di";
 import {
   loginController,
   LoginInput,

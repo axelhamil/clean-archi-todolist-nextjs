@@ -2,11 +2,12 @@ import { captureException, startSpan } from "@sentry/nextjs";
 import { eq } from "drizzle-orm";
 import { injectable } from "inversify";
 
-import { db } from "@/libs/drizzle";
-import { users } from "@/libs/drizzle/schemas";
+import { users } from "@/shared/db/schemas";
 import { IUserRepo } from "@/src/application/spi/userRepo.spi";
 import { User } from "@/src/domains/entities/user";
 import { DatabaseOperationError } from "@/src/domains/errors/common";
+
+import { db } from "../../../shared/db";
 
 @injectable()
 export class UserRepoImpl implements IUserRepo {

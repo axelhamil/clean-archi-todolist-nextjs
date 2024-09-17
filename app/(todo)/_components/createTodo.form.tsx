@@ -17,7 +17,7 @@ import {
 import { Input } from "@/app/_components/ui/input";
 import { createTodoAction } from "@/app/(todo)/todo.action";
 
-import { Button } from "../_components/ui/button";
+import { Button } from "../../_components/ui/button";
 
 const formSchema = z.object({
   todo: z.string().min(1),

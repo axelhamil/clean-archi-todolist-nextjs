@@ -1,6 +1,6 @@
 import { ContainerModule, interfaces } from "inversify";
 
-import { DI_SYMBOLS } from "@/libs/di/types";
+import { DI_SYMBOLS } from "@/shared/di/types";
 import { TodoRepoImpl } from "@/src/adapters/repositories/todoRepo.impl";
 import { TodoRepoMock } from "@/src/adapters/repositories/todoRepo.mock";
 import { ITodoRepo } from "@/src/application/spi/todoRepo.spi";

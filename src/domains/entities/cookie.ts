@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { env } from "@/libs/env";
+import { env } from "@/shared/env";
 
 export const cookieAttributesSchema = z.object({
   domain: z.string().optional(),

@@ -1,6 +1,6 @@
 import { startSpan } from "@sentry/nextjs";
 
-import { getInjection } from "@/libs/di";
+import { getInjection } from "@/shared/di";
 import { NotFoundError, UnauthorizedError } from "@/src/domains/errors/common";
 
 export const deleteTodoUseCase = async (

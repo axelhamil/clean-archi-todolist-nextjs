@@ -2,12 +2,12 @@ import { captureException, startSpan } from "@sentry/nextjs";
 import { eq } from "drizzle-orm";
 import { injectable } from "inversify";
 
-import { sessions } from "@/libs/drizzle/schemas";
+import { sessions } from "@/shared/db/schemas";
 import { ISessionRepo } from "@/src/application/spi/sessionRepo.spi";
 import { Session } from "@/src/domains/entities/session";
 import { DatabaseOperationError } from "@/src/domains/errors/common";
 
-import { db } from "../../../libs/drizzle";
+import { db } from "../../../shared/db";
 
 @injectable()
 export class SessionRepoImpl implements ISessionRepo {

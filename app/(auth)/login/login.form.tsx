@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LogIn } from "lucide-react";
 import Link from "next/link";
@@ -59,7 +58,6 @@ export default function LoginForm(): ReactElement {
           <FormField
             control={form.control}
             name="email"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
@@ -68,6 +66,7 @@ export default function LoginForm(): ReactElement {
                     {...field}
                     placeholder="john@doe.com"
                     className="p-3"
+                    disabled={isSubmitting}
                   />
                 </FormControl>
                 <FormMessage />
@@ -77,7 +76,6 @@ export default function LoginForm(): ReactElement {
           <FormField
             control={form.control}
             name="password"
-            disabled={isSubmitting}
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
@@ -87,6 +85,7 @@ export default function LoginForm(): ReactElement {
                     {...field}
                     placeholder="********"
                     className="p-3"
+                    disabled={isSubmitting}
                   />
                 </FormControl>
                 <FormMessage />

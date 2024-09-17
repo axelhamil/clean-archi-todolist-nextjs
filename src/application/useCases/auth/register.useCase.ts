@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { startSpan } from "@sentry/nextjs";
 import bcrypt from "bcrypt";
 
-import { getInjection } from "@/libs/di";
+import { getInjection } from "@/shared/di";
 import { createSession } from "@/src/application/services/authService";
 import { Cookie } from "@/src/domains/entities/cookie";
 import { Session } from "@/src/domains/entities/session";

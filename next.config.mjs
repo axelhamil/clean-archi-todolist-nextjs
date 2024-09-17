@@ -34,7 +34,7 @@ export default withSentryConfig(nextConfig, {
   // https://github.com/getsentry/sentry-webpack-plugin#options
   org: "axelhamil",
 
-  project: "nextjs-clean-archi",
+  project: "ultimate-todolist-clean-archi",
 
   // Automatically annotate React components to show their full name in breadcrumbs and session replay
   reactComponentAnnotation: {

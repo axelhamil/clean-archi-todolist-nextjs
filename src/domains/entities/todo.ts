@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 
 import { z } from "zod";
 
-import { domainEventSchema } from "@/libs/domain.event";
-import { eventBus } from "@/libs/eventBus";
+import { domainEventSchema } from "@/shared/core/domain.event";
+import { eventBus } from "@/shared/core/eventBus";
 
 export const todoSchema = z.object({
   completed: z.boolean().default(false),

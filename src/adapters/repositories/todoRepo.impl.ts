@@ -2,13 +2,13 @@ import { captureException, startSpan } from "@sentry/nextjs";
 import { eq } from "drizzle-orm";
 import { injectable } from "inversify";
 
-import { todos } from "@/libs/drizzle/schemas";
-import { eventBus } from "@/libs/eventBus";
+import { eventBus } from "@/shared/core/eventBus";
+import { todos } from "@/shared/db/schemas";
 import { ITodoRepo } from "@/src/application/spi/todoRepo.spi";
 import { Todo, TodoInsert } from "@/src/domains/entities/todo";
 import { DatabaseOperationError } from "@/src/domains/errors/common";
 
-import { db } from "../../../libs/drizzle";
+import { db } from "../../../shared/db";
 
 @injectable()
 export class TodoRepoImpl implements ITodoRepo {

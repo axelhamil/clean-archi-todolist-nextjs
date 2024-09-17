@@ -77,12 +77,16 @@ export default function RegisterForm(): ReactElement {
         <FormField
           control={form.control}
           name="email"
-          disabled={isSubmitting}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="john@doe.com" className="p-3" />
+                <Input
+                  {...field}
+                  placeholder="john@doe.com"
+                  className="p-3"
+                  disabled={isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -91,7 +95,6 @@ export default function RegisterForm(): ReactElement {
         <FormField
           control={form.control}
           name="password"
-          disabled={isSubmitting}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
@@ -101,6 +104,7 @@ export default function RegisterForm(): ReactElement {
                   {...field}
                   placeholder="********"
                   className="p-3"
+                  disabled={isSubmitting}
                 />
               </FormControl>
               <FormMessage />
@@ -110,7 +114,6 @@ export default function RegisterForm(): ReactElement {
         <FormField
           control={form.control}
           name="confirm_password"
-          disabled={isSubmitting}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
@@ -120,6 +123,7 @@ export default function RegisterForm(): ReactElement {
                   {...field}
                   placeholder="********"
                   className="p-3"
+                  disabled={isSubmitting}
                 />
               </FormControl>
               <FormMessage />

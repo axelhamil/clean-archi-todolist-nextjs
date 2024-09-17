@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 
-import { eventBus } from "@/libs/eventBus";
+import { eventBus } from "@/shared/core/eventBus";
 import { ITodoRepo } from "@/src/application/spi/todoRepo.spi";
 import { Todo, TodoInsert } from "@/src/domains/entities/todo";
 

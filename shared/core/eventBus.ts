@@ -1,6 +1,6 @@
-import { captureEvent } from "@sentry/nextjs";
+import { startNewTrace, startSpan } from "@sentry/nextjs";
 
-import { DomainEvent } from "@/libs/domain.event";
+import { DomainEvent } from "@/shared/core/domain.event";
 import { winPointsUseCase } from "@/src/application/useCases/score/winPoints.useCase";
 import { TodoCompletedEvent } from "@/src/domains/entities/todo";
 
@@ -26,10 +26,12 @@ class EventBus {
   }
 
   public addEvent(entityId: string, event: DomainEvent): void {
-    if (!this.events[entityId]) {
-      this.events[entityId] = [];
-    }
-    this.events[entityId].push(event);
+    startNewTrace(() => {
+      if (!this.events[entityId]) {
+        this.events[entityId] = [];
+      }
+      this.events[entityId].push(event);
+    });
   }
 
   public dispatch(entityId: string): void {
@@ -40,10 +42,6 @@ class EventBus {
         for (const listener of listeners) {
           listener(event);
         }
-        captureEvent({
-          extra: event,
-          message: `Event emitted: ${event.type}`,
-        });
       }
       delete this.events[entityId];
     }
@@ -53,10 +51,18 @@ class EventBus {
     eventType: string,
     listener: (event: T & DomainEvent) => void,
   ): void {
-    if (!this.handlers[eventType]) {
-      this.handlers[eventType] = [];
-    }
-    this.handlers[eventType].push(listener);
+    startSpan(
+      {
+        name: "subscribe",
+        op: "eventbus",
+      },
+      () => {
+        if (!this.handlers[eventType]) {
+          this.handlers[eventType] = [];
+        }
+        this.handlers[eventType].push(listener);
+      },
+    );
   }
 }
 

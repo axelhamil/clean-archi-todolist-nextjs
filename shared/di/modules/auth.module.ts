@@ -1,6 +1,6 @@
 import { ContainerModule, interfaces } from "inversify";
 
-import { DI_SYMBOLS } from "@/libs/di/types";
+import { DI_SYMBOLS } from "@/shared/di/types";
 import { SessionRepoImpl } from "@/src/adapters/repositories/sessionRepo.impl";
 import { SessionRepoMock } from "@/src/adapters/repositories/sessionRepo.mock";
 import { ISessionRepo } from "@/src/application/spi/sessionRepo.spi";

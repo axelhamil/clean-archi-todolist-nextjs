@@ -1,6 +1,6 @@
 import { startSpan } from "@sentry/nextjs";
 
-import { getInjection } from "@/libs/di";
+import { getInjection } from "@/shared/di";
 import { winPointsSchema } from "@/src/domains/entities/user";
 import { NotFoundError } from "@/src/domains/errors/common";
 

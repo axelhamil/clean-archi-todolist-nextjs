@@ -6,7 +6,7 @@ import {
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-import { SESSION_COOKIE } from "@/libs/di";
+import { SESSION_COOKIE } from "@/shared/di";
 import {
   createTodoController,
   CreateTodoInput,
