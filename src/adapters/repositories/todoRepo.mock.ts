@@ -1,5 +1,6 @@
 import { injectable } from "inversify";
 
+import { eventBus } from "@/libs/eventBus";
 import { ITodoRepo } from "@/src/application/spi/todoRepo.spi";
 import { Todo, TodoInsert } from "@/src/domains/entities/todo";
 
@@ -15,6 +16,7 @@ export class TodoRepoMock implements ITodoRepo {
       updatedAt: new Date(),
     };
     this._todos.push(newTodo);
+    eventBus.dispatch(newTodo.id);
     return newTodo;
   }
 
@@ -24,6 +26,7 @@ export class TodoRepoMock implements ITodoRepo {
       throw new Error(`Todo with id ${todo.id} not found`);
     }
     this._todos[index] = todo;
+    eventBus.dispatch(todo.id);
     return todo;
   }
 

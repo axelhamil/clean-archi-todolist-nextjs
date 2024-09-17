@@ -1,19 +1,16 @@
 import { captureException, startSpan } from "@sentry/nextjs";
+import { eq } from "drizzle-orm";
 import { injectable } from "inversify";
 
+import { db } from "@/libs/drizzle";
 import { users } from "@/libs/drizzle/schemas";
 import { IUserRepo } from "@/src/application/spi/userRepo.spi";
-import { User, UserWithoutPassword } from "@/src/domains/entities/user";
+import { User } from "@/src/domains/entities/user";
 import { DatabaseOperationError } from "@/src/domains/errors/common";
-
-import { db } from "../../../libs/drizzle";
 
 @injectable()
 export class UserRepoImpl implements IUserRepo {
-  async create(input: {
-    email: string;
-    password: string;
-  }): Promise<UserWithoutPassword> {
+  async create(input: { email: string; password: string }): Promise<User> {
     return await startSpan(
       {
         name: "AuthRepo -> create",
@@ -61,6 +58,48 @@ export class UserRepoImpl implements IUserRepo {
           });
 
           throw new DatabaseOperationError("Error creating user", {
+            cause: error,
+          });
+        }
+      },
+    );
+  }
+
+  async update(user: User): Promise<User> {
+    return await startSpan(
+      {
+        name: "AuthRepo -> update",
+        op: "repository",
+      },
+      async () => {
+        try {
+          const query = db
+            .update(users)
+            .set(user)
+            .where(eq(users.id, user.id))
+            .returning();
+
+          const [updated] = await startSpan(
+            {
+              attributes: {
+                "db.system": "postgres",
+              },
+              name: query.toSQL().sql,
+              op: "db.query",
+            },
+            async () => query.execute(),
+          );
+
+          return updated;
+        } catch (error) {
+          captureException(error, {
+            level: "error",
+            tags: {
+              "error.type": "DatabaseOperationError",
+            },
+          });
+
+          throw new DatabaseOperationError("Error updating user", {
             cause: error,
           });
         }

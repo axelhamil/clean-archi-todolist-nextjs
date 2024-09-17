@@ -1,7 +1,7 @@
 import { startSpan } from "@sentry/nextjs";
 
 import { getInjection } from "@/libs/di";
-import { Todo } from "@/src/domains/entities/todo";
+import { createTodo, Todo } from "@/src/domains/entities/todo";
 import { NotFoundError, UnauthorizedError } from "@/src/domains/errors/common";
 
 export const toggleTodoUseCase = async (
@@ -25,10 +25,15 @@ export const toggleTodoUseCase = async (
           "Cannot toggle todo, because: unauthorized",
         );
 
-      const updatedTodo = await todoRepo.update({
-        ...todo,
-        completed: !todo.completed,
-      });
+      const newTodo = createTodo(
+        {
+          ...todo,
+          completed: !todo.completed,
+        },
+        todo.id,
+      );
+
+      const updatedTodo = await todoRepo.update(newTodo);
 
       return updatedTodo;
     },

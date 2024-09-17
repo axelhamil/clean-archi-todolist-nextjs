@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { injectable } from "inversify";
 
 import { todos } from "@/libs/drizzle/schemas";
+import { eventBus } from "@/libs/eventBus";
 import { ITodoRepo } from "@/src/application/spi/todoRepo.spi";
 import { Todo, TodoInsert } from "@/src/domains/entities/todo";
 import { DatabaseOperationError } from "@/src/domains/errors/common";
@@ -31,6 +32,8 @@ export class TodoRepoImpl implements ITodoRepo {
             },
             async () => query.execute(),
           );
+
+          if (created) eventBus.dispatch(created.id);
 
           return created;
         } catch (error) {
@@ -73,6 +76,8 @@ export class TodoRepoImpl implements ITodoRepo {
             },
             async () => query.execute(),
           );
+
+          if (updated) eventBus.dispatch(updated.id);
 
           return updated;
         } catch (error) {

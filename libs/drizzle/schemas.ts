@@ -1,5 +1,6 @@
 import {
   boolean,
+  integer,
   pgTable,
   timestamp,
   uuid,
@@ -21,6 +22,7 @@ export const users = pgTable("users", {
   password: varchar("password", {
     length: 255,
   }).notNull(),
+  points: integer("points").default(0).notNull(),
   updatedAt: timestamp("updated_at", {
     mode: "date",
     precision: 3,
