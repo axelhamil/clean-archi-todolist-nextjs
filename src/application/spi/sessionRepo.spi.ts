@@ -5,4 +5,5 @@ export interface ISessionRepo {
   update(session: Session): Promise<Session>;
   delete(sessionId: string): Promise<Session>;
   find(sessionId: string): Promise<Session | null>;
+  findByUserId(userId: string): Promise<Session | null>;
 }

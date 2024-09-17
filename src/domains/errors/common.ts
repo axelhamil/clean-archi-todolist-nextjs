@@ -27,3 +27,9 @@ export class UnauthorizedError extends Error {
     super(message, options);
   }
 }
+
+export class AuthenticateError extends Error {
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
+  }
+}

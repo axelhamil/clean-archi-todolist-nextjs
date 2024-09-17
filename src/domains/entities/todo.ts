@@ -1,18 +1,18 @@
 import { z } from "zod";
 
-export const selectTodoSchema = z.object({
+export const todoSchema = z.object({
+  completed: z.boolean().default(false),
+  createdAt: z.date().optional(),
   id: z.string(),
   todo: z.string(),
-  completed: z.boolean().default(false),
-  userId: z.string(),
-  createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
-})
-export type Todo = z.infer<typeof selectTodoSchema>;
+  userId: z.string(),
+});
+export type Todo = z.infer<typeof todoSchema>;
 
-export const insertTodoSchema = selectTodoSchema.pick({
-  todo: true,
+export const insertTodoSchema = todoSchema.pick({
   completed: true,
+  todo: true,
   userId: true,
-})
+});
 export type TodoInsert = z.infer<typeof insertTodoSchema>;
