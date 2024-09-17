@@ -1,17 +1,19 @@
+import { captureEvent } from "@sentry/nextjs";
+
 import { DomainEvent } from "@/libs/domain.event";
 import { winPointsUseCase } from "@/src/application/useCases/score/winPoints.useCase";
+import { TodoCompletedEvent } from "@/src/domains/entities/todo";
 
 type Events = { [id: string]: DomainEvent[] };
 
 class EventBus {
   private static instance: EventBus;
   public events: Events = {};
-  private handlers: { [key: string]: ((event: DomainEvent) => void)[] } = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private handlers: { [key: string]: ((event: any) => void)[] } = {};
 
   constructor() {
-    this.subscribe("TODO_COMPLETED", async (event) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
+    this.subscribe("TODO_COMPLETED", async (event: TodoCompletedEvent) => {
       await winPointsUseCase({ userId: event.payload.userId });
     });
   }
@@ -38,14 +40,18 @@ class EventBus {
         for (const listener of listeners) {
           listener(event);
         }
+        captureEvent({
+          extra: event,
+          message: `Event emitted: ${event.type}`,
+        });
       }
       delete this.events[entityId];
     }
   }
 
-  public subscribe(
+  public subscribe<T>(
     eventType: string,
-    listener: (event: DomainEvent) => void,
+    listener: (event: T & DomainEvent) => void,
   ): void {
     if (!this.handlers[eventType]) {
       this.handlers[eventType] = [];

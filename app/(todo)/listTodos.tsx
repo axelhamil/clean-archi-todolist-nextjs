@@ -33,14 +33,14 @@ export default function ListTodos({ todos }: IListTodosProps): ReactElement {
       {todos.map((todo) => (
         <li
           key={todo.id}
-          className="m-2 flex items-center justify-between gap-2"
+          className="m-2 flex items-center justify-center gap-5"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex w-1/4 items-center gap-5">
             <Checkbox
               id={`todo-${todo.id}`}
               checked={todo.completed}
               onCheckedChange={() => handleCheckedChange(todo.id)}
-              className="transition-all ease-in-out hover:scale-110"
+              className="transition-all ease-in-out"
             />
             <Label
               htmlFor={`todo-${todo.id}`}

@@ -18,7 +18,7 @@ export const todoCompletedEventSchema = domainEventSchema.extend({
   payload: todoSchema,
   type: z.literal("TODO_COMPLETED"),
 });
-export type TodoCompletedEvent = typeof todoCompletedEventSchema;
+export type TodoCompletedEvent = z.infer<typeof todoCompletedEventSchema>;
 
 export type Todo = z.infer<typeof todoSchema>;
 

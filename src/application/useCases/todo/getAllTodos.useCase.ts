@@ -1,10 +1,20 @@
+import { startSpan } from "@sentry/nextjs";
+
 import { getInjection } from "@/libs/di";
 import { Todo } from "@/src/domains/entities/todo";
 
 export const getAllTodosUseCase = async (userId: string): Promise<Todo[]> => {
-  const todoRepo = getInjection("ITodoRepo");
+  return await startSpan(
+    {
+      name: "getAllTodosUseCase",
+      op: "use-case",
+    },
+    async () => {
+      const todoRepo = getInjection("ITodoRepo");
 
-  const todos = await todoRepo.findAll(userId);
+      const todos = await todoRepo.findAll(userId);
 
-  return todos;
+      return todos;
+    },
+  );
 };
