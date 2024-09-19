@@ -1,12 +1,9 @@
 import { startSpan } from "@sentry/nextjs";
 import { z } from "zod";
 
-import { validateSession } from "@/src/application/services/authService";
-import { deleteTodoUseCase } from "@/src/application/useCases/todo/deleteTodo.useCase";
-import {
-  InputParseError,
-  UnauthorizedError,
-} from "@/src/domains/errors/common";
+import { validateSession } from "@/src/application/services/auth.service";
+import { deleteTodoUseCase } from "@/src/application/use-cases/deleteTodo.use-case";
+import { InputParseError, UnauthorizedError } from "@/src/shared/errors";
 
 const presenter = (data: string) => {
   return startSpan(

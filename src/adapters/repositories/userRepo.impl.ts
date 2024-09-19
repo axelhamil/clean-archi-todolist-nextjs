@@ -2,12 +2,11 @@ import { captureException, startSpan } from "@sentry/nextjs";
 import { eq } from "drizzle-orm";
 import { injectable } from "inversify";
 
-import { users } from "@/shared/db/schemas";
-import { IUserRepo } from "@/src/application/spi/userRepo.spi";
-import { User } from "@/src/domains/entities/user";
-import { DatabaseOperationError } from "@/src/domains/errors/common";
-
-import { db } from "../../../shared/db";
+import { db } from "@/common/db";
+import { users } from "@/common/db/schemas";
+import { IUserRepo } from "@/src/application/interfaces/userRepo.interface";
+import { User } from "@/src/domains/user/user.entity";
+import { DatabaseOperationError } from "@/src/shared/errors";
 
 @injectable()
 export class UserRepoImpl implements IUserRepo {

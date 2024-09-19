@@ -1,8 +1,8 @@
 import { startSpan } from "@sentry/nextjs";
 import { z } from "zod";
 
-import { registerUseCase } from "@/src/application/useCases/auth/register.useCase";
-import { InputParseError } from "@/src/domains/errors/common";
+import { registerUseCase } from "@/src/application/use-cases/register.use-case";
+import { InputParseError } from "@/src/shared/errors";
 
 const inputSchema = z
   .object({

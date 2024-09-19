@@ -1,9 +1,9 @@
 import { startSpan } from "@sentry/nextjs";
 
-import { validateSession } from "@/src/application/services/authService";
-import { logoutUseCase } from "@/src/application/useCases/auth/logout.useCase";
-import { Cookie } from "@/src/domains/entities/cookie";
-import { InputParseError } from "@/src/domains/errors/common";
+import { validateSession } from "@/src/application/services/auth.service";
+import { logoutUseCase } from "@/src/application/use-cases/logout.use-case";
+import { Cookie } from "@/src/domains/auth/cookie";
+import { InputParseError } from "@/src/shared/errors";
 
 export async function logoutController(
   sessionId: string | undefined,

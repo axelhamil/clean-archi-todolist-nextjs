@@ -10,12 +10,12 @@ import {
   registerController,
   RegisterInput,
 } from "@/src/adapters/controllers/register.controller";
-import { Cookie } from "@/src/domains/entities/cookie";
+import { Cookie } from "@/src/domains/auth/cookie";
 import {
   AuthenticateError,
   InputParseError,
   UnauthorizedError,
-} from "@/src/domains/errors/common";
+} from "@/src/shared/errors";
 
 export async function registerAction(input: RegisterInput) {
   return await withServerActionInstrumentation(
@@ -38,6 +38,7 @@ export async function registerAction(input: RegisterInput) {
           };
         }
         captureException(err);
+        console.error(err);
         return {
           error:
             "An error happened. The developers have been notified. Please try again later. Message: " +

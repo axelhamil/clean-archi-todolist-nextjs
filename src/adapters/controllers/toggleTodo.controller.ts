@@ -1,13 +1,10 @@
 import { startSpan } from "@sentry/nextjs";
 import { z } from "zod";
 
-import { validateSession } from "@/src/application/services/authService";
-import { toggleTodoUseCase } from "@/src/application/useCases/todo/toggleTodo.useCase";
-import { Todo } from "@/src/domains/entities/todo";
-import {
-  InputParseError,
-  UnauthorizedError,
-} from "@/src/domains/errors/common";
+import { validateSession } from "@/src/application/services/auth.service";
+import { toggleTodoUseCase } from "@/src/application/use-cases/toggleTodo.use-case";
+import { Todo } from "@/src/domains/todo/todo.entity";
+import { InputParseError, UnauthorizedError } from "@/src/shared/errors";
 
 const presenter = (data: Todo) => {
   return startSpan(

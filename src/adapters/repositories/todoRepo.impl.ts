@@ -2,17 +2,17 @@ import { captureException, startSpan } from "@sentry/nextjs";
 import { eq } from "drizzle-orm";
 import { injectable } from "inversify";
 
-import { eventBus } from "@/shared/core/eventBus";
-import { todos } from "@/shared/db/schemas";
-import { ITodoRepo } from "@/src/application/spi/todoRepo.spi";
-import { Todo, TodoInsert } from "@/src/domains/entities/todo";
-import { DatabaseOperationError } from "@/src/domains/errors/common";
+import { db } from "@/common/db";
+import { todos } from "@/common/db/schemas";
+import { ITodoRepo } from "@/src/application/interfaces/todoRepo.interface";
+import { Todo } from "@/src/domains/todo/todo.entity";
+import { DatabaseOperationError } from "@/src/shared/errors";
 
-import { db } from "../../../shared/db";
+import { eventBus } from "../../shared/events";
 
 @injectable()
 export class TodoRepoImpl implements ITodoRepo {
-  async create(todo: TodoInsert): Promise<Todo> {
+  async create(todo: Todo): Promise<Todo> {
     return await startSpan(
       {
         name: "TodoRepo -> create",
@@ -30,7 +30,7 @@ export class TodoRepoImpl implements ITodoRepo {
               name: query.toSQL().sql,
               op: "db.query",
             },
-            async () => query.execute(),
+            async () => await query.execute(),
           );
 
           if (created) eventBus.dispatch(created.id);
@@ -74,7 +74,7 @@ export class TodoRepoImpl implements ITodoRepo {
               name: query.toSQL().sql,
               op: "db.query",
             },
-            async () => query.execute(),
+            async () => await query.execute(),
           );
 
           if (updated) eventBus.dispatch(updated.id);

@@ -1,18 +1,18 @@
 import { injectable } from "inversify";
 
-import { eventBus } from "@/shared/core/eventBus";
-import { ITodoRepo } from "@/src/application/spi/todoRepo.spi";
-import { Todo, TodoInsert } from "@/src/domains/entities/todo";
+import { ITodoRepo } from "@/src/application/interfaces/todoRepo.interface";
+import { Todo } from "@/src/domains/todo/todo.entity";
+
+import { eventBus } from "../../shared/events";
 
 @injectable()
 export class TodoRepoMock implements ITodoRepo {
   private _todos: Todo[] = [];
 
-  async create(todo: TodoInsert): Promise<Todo> {
+  async create(todo: Todo): Promise<Todo> {
     const newTodo = {
       ...todo,
       createdAt: new Date(),
-      id: this._todos.length.toString(),
       updatedAt: new Date(),
     };
     this._todos.push(newTodo);

@@ -6,7 +6,7 @@ import {
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-import { SESSION_COOKIE } from "@/shared/di";
+import { SESSION_COOKIE } from "@/common/di";
 import {
   createTodoController,
   CreateTodoInput,
@@ -20,7 +20,7 @@ import {
   ConflictError,
   InputParseError,
   UnauthorizedError,
-} from "@/src/domains/errors/common";
+} from "@/src/shared/errors";
 
 export async function createTodoAction(input: CreateTodoInput) {
   return await withServerActionInstrumentation(
@@ -37,6 +37,7 @@ export async function createTodoAction(input: CreateTodoInput) {
           return { error: "Must be logged in to create a todo" };
 
         captureException(error);
+        console.error(error);
         return { error: "Something went wrong" };
       }
 
@@ -61,6 +62,7 @@ export async function toggleTodoAction(input: ToggleTodoInput) {
           return { error: "Must be logged in to create a todo" };
 
         captureException(error);
+        console.error(error);
         return { error: "Something went wrong" };
       }
 
@@ -85,6 +87,7 @@ export async function deleteTodoAction(input: { id: string }) {
           return { error: "Must be logged in to create a todo" };
 
         captureException(error);
+        console.error(error);
         return { error: "Something went wrong" };
       }
 

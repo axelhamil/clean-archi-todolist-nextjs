@@ -7,7 +7,7 @@ import { Checkbox } from "@/app/_components/ui/checkbox";
 import { Label } from "@/app/_components/ui/label";
 import { cn } from "@/app/_components/utils";
 import { deleteTodoAction, toggleTodoAction } from "@/app/(todo)/todo.action";
-import { Todo } from "@/src/domains/entities/todo";
+import { Todo } from "@/src/domains/todo/todo.entity";
 
 interface IListTodosProps {
   todos: Todo[];

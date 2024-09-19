@@ -1,9 +1,9 @@
 import { startSpan } from "@sentry/nextjs";
 
-import { validateSession } from "@/src/application/services/authService";
-import { getUserUseCase } from "@/src/application/useCases/user/getUser.useCase";
-import { User } from "@/src/domains/entities/user";
-import { UnauthorizedError } from "@/src/domains/errors/common";
+import { validateSession } from "@/src/application/services/auth.service";
+import { getUserUseCase } from "@/src/application/use-cases/getUser.use-case";
+import { User } from "@/src/domains/user/user.entity";
+import { UnauthorizedError } from "@/src/shared/errors";
 
 const presenter = (data: User) => {
   return startSpan(
@@ -15,7 +15,6 @@ const presenter = (data: User) => {
       createdAt: data?.createdAt ?? undefined,
       email: data.email,
       id: data.id,
-      points: data.points,
       updatedAt: data?.updatedAt ?? undefined,
     }),
   );

@@ -3,14 +3,14 @@ import { randomUUID } from "node:crypto";
 import bcrypt from "bcrypt";
 import { injectable } from "inversify";
 
-import { IUserRepo } from "@/src/application/spi/userRepo.spi";
-import { User } from "@/src/domains/entities/user";
+import { IUserRepo } from "@/src/application/interfaces/userRepo.interface";
+import { User } from "@/src/domains/user/user.entity";
 
 export const MOCK_USER_UUID = "bd0b35ad-d389-46ca-9cf4-0dcb3456c265";
 
 @injectable()
 export class UserRepoMock implements IUserRepo {
-  private users: User[] = [];
+  private readonly users: User[] = [];
 
   public constructor() {
     this.users = [
@@ -18,7 +18,6 @@ export class UserRepoMock implements IUserRepo {
         email: "john@doe.com",
         id: MOCK_USER_UUID,
         password: bcrypt.hashSync("password", 10),
-        points: 0,
       },
     ];
   }

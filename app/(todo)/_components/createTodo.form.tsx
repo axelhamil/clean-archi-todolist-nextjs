@@ -35,10 +35,11 @@ export default function CreateTodoForm(): ReactElement {
     const result = await createTodoAction(values);
 
     if (result.error) toast.error(result.error);
-    else if (result.success) toast.success("Todo created successfully");
-
-    form.reset();
-    form.clearErrors();
+    else if (result.success) {
+      toast.success("Todo created successfully");
+      form.reset();
+      form.clearErrors();
+    }
   };
 
   return (

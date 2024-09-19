@@ -1,9 +1,9 @@
 import { startSpan } from "@sentry/nextjs";
 
-import { validateSession } from "@/src/application/services/authService";
-import { getAllTodosUseCase } from "@/src/application/useCases/todo/getAllTodos.useCase";
-import { Todo } from "@/src/domains/entities/todo";
-import { UnauthorizedError } from "@/src/domains/errors/common";
+import { validateSession } from "@/src/application/services/auth.service";
+import { getAllTodosUseCase } from "@/src/application/use-cases/getAllTodos.use-case";
+import { Todo } from "@/src/domains/todo/todo.entity";
+import { UnauthorizedError } from "@/src/shared/errors";
 
 const presenter = (data: Todo[]) => {
   return startSpan(

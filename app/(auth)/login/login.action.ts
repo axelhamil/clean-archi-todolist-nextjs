@@ -6,18 +6,18 @@ import {
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { SESSION_COOKIE } from "@/shared/di";
+import { SESSION_COOKIE } from "@/common/di";
 import {
   loginController,
   LoginInput,
 } from "@/src/adapters/controllers/login.controller";
 import { logoutController } from "@/src/adapters/controllers/logout.controller";
-import { Cookie } from "@/src/domains/entities/cookie";
+import { Cookie } from "@/src/domains/auth/cookie";
 import {
   AuthenticateError,
   InputParseError,
   UnauthorizedError,
-} from "@/src/domains/errors/common";
+} from "@/src/shared/errors";
 
 export async function loginAction(input: LoginInput) {
   return await withServerActionInstrumentation(
@@ -38,6 +38,7 @@ export async function loginAction(input: LoginInput) {
           };
         }
         captureException(err);
+        console.error(err);
         return {
           error:
             "An error happened. The developers have been notified. Please try again later.",
@@ -75,6 +76,7 @@ export async function logoutAction() {
           redirect("/login");
         }
         captureException(err);
+        console.error(err);
         throw err;
       }
 

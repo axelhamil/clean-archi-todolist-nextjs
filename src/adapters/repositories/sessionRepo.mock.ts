@@ -2,8 +2,8 @@ import { randomUUID } from "node:crypto";
 
 import { injectable } from "inversify";
 
-import { ISessionRepo } from "@/src/application/spi/sessionRepo.spi";
-import { Session } from "@/src/domains/entities/session";
+import { ISessionRepo } from "@/src/application/interfaces/sessionRepo.interface";
+import { Session } from "@/src/domains/auth/session";
 
 @injectable()
 export class SessionRepoMock implements ISessionRepo {
