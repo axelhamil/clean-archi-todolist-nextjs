@@ -4,12 +4,12 @@ import { entitySchema } from "@/src/shared/entity";
 
 export const todoSchema = entitySchema.extend({
   completed: z.boolean().default(false),
-  todo: z.string(),
+  title: z.string(),
   userId: z.string(),
 });
 export const insertTodoSchema = todoSchema.pick({
   completed: true,
-  todo: true,
+  title: true,
   userId: true,
 });
 

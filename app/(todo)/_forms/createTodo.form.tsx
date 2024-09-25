@@ -20,13 +20,13 @@ import { createTodoAction } from "@/app/(todo)/_actions/createTodo.action";
 import { Button } from "../../_components/ui/button";
 
 const formSchema = z.object({
-  todo: z.string().min(1),
+  title: z.string().min(1),
 });
 
 export default function CreateTodoForm(): ReactElement {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
-      todo: "",
+      title: "",
     },
     resolver: zodResolver(formSchema),
   });
@@ -50,7 +50,7 @@ export default function CreateTodoForm(): ReactElement {
       >
         <FormField
           control={form.control}
-          name="todo"
+          name="title"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Todo</FormLabel>

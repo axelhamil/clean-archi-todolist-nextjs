@@ -14,7 +14,7 @@ export const createTodo: CreateTodo = (input, id = randomUUID()) => {
     completed: input.completed,
     id,
     points: 5,
-    todo: input.todo,
+    title: input.title,
     updatedAt: new Date(),
     userId: input.userId,
   };

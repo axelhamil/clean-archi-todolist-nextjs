@@ -16,14 +16,14 @@ const presenter = (data: Todo) => {
       completed: data.completed,
       createdAt: data?.createdAt ?? undefined,
       id: data.id,
-      todo: data.todo,
+      title: data.title,
       updatedAt: data?.updatedAt ?? undefined,
       userId: data.userId,
     }),
   );
 };
 
-const createTodoInputSchema = z.object({ todo: z.string().min(1) });
+const createTodoInputSchema = z.object({ title: z.string().min(1) });
 export type CreateTodoInput = z.infer<typeof createTodoInputSchema>;
 export async function createTodoController(
   input: CreateTodoInput,

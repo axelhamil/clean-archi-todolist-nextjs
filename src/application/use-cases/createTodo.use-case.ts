@@ -5,7 +5,7 @@ import { Todo } from "@/src/domains/todo/todo.entity";
 import { createTodo } from "@/src/domains/todo/todo.service";
 
 export const createTodoUseCase = async (
-  input: { todo: string },
+  input: { title: string },
   userId: string,
 ): Promise<Todo> => {
   return startSpan(
@@ -18,7 +18,7 @@ export const createTodoUseCase = async (
 
       const newTodo = createTodo({
         completed: false,
-        todo: input.todo,
+        title: input.title,
         userId,
       });
 

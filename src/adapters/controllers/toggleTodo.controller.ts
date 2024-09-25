@@ -16,7 +16,7 @@ const presenter = (data: Todo) => {
       completed: data.completed,
       createdAt: data?.createdAt ?? undefined,
       id: data.id,
-      todo: data.todo,
+      title: data.title,
       updatedAt: data?.updatedAt ?? undefined,
       userId: data.userId,
     }),

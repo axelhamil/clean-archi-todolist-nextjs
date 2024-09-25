@@ -66,7 +66,7 @@ export const todos = pgTable("todos", {
     .defaultNow()
     .notNull(),
   id: uuid("id").defaultRandom().unique().primaryKey(),
-  todo: varchar("todo", {
+  title: varchar("title", {
     length: 255,
   }).notNull(),
   updatedAt: timestamp("updated_at", {
