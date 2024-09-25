@@ -18,15 +18,13 @@ import {
 import { Input } from "@/app/_components/ui/input";
 import { Separator } from "@/app/_components/ui/separator";
 import { TypographyP } from "@/app/_components/ui/typographyP";
-import { registerAction } from "@/app/(auth)/register/register.action";
+import { registerAction } from "@/app/(auth)/_actions/register.action";
 
 const formSchema = z
   .object({
-    confirm_password: z
-      .string()
-      .min(6, "Password must be at least 6 characters long"),
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters long"),
+    confirm_password: z.string().min(6),
+    email: z.string().email(),
+    password: z.string().min(6),
   })
   .superRefine(({ password, confirm_password }, ctx) => {
     if (confirm_password !== password) {

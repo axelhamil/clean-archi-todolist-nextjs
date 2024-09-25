@@ -1,6 +1,6 @@
 import { startSpan } from "@sentry/nextjs";
 
-import { invalidateSession } from "@/src/application/services/auth.service";
+import { getInjection } from "@/common/di";
 import { Cookie } from "@/src/domains/auth/cookie";
 
 export const logoutUseCase = async (input: {
@@ -14,7 +14,8 @@ export const logoutUseCase = async (input: {
       op: "use-case",
     },
     async () => {
-      return await invalidateSession(input.sessionId);
+      const authService = getInjection("AuthService");
+      return await authService.invalidateSession(input.sessionId);
     },
   );
 };

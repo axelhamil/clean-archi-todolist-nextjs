@@ -2,6 +2,7 @@ import { Container } from "inversify";
 
 import { TodoModule } from "@/common/di/modules/todo.module";
 import { DI_RETURN_TYPES, DI_SYMBOLS } from "@/common/di/types";
+import { env } from "@/common/env";
 
 import { AuthModule } from "./modules/auth.module";
 import { UserModule } from "./modules/user.module";
@@ -24,7 +25,7 @@ export const destroyContainer = () => {
   ApplicationContainer.unload(AuthModule);
 };
 
-if (process.env.NODE_ENV !== "test") {
+if (env.NODE_ENV !== "test") {
   initializeContainer();
 }
 

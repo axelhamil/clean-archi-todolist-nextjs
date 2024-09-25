@@ -1,7 +1,7 @@
 import { startSpan } from "@sentry/nextjs";
 import { z } from "zod";
 
-import { validateSession } from "@/src/application/services/auth.service";
+import { getInjection } from "@/common/di";
 import { toggleTodoUseCase } from "@/src/application/use-cases/toggleTodo.use-case";
 import { Todo } from "@/src/domains/todo/todo.entity";
 import { InputParseError, UnauthorizedError } from "@/src/shared/errors";
@@ -36,8 +36,8 @@ export async function toggleTodoController(
     },
     async () => {
       if (!sessionId) throw new UnauthorizedError("Must be logged in");
-
-      const { user } = await validateSession(sessionId);
+      const authService = getInjection("AuthService");
+      const { user } = await authService.validateSession(sessionId);
 
       const { data, error: inputParseError } =
         toggleTodoInputSchema.safeParse(input);

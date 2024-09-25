@@ -1,7 +1,7 @@
 import { type ReactElement } from "react";
 
 import { Card, CardContent, CardHeader } from "@/app/_components/ui/card";
-import LoginForm from "@/app/(auth)/login/login.form";
+import LoginForm from "@/app/(auth)/_forms/login.form";
 
 export default function Page(): ReactElement {
   return (

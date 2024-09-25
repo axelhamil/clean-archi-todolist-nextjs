@@ -1,9 +1,8 @@
 import { loadEnvConfig } from "@next/env";
+import { z } from "zod";
 
 const projectDir = process.cwd();
 loadEnvConfig(projectDir);
-
-import { z } from "zod";
 
 const envSchema = z.object({
   CODECOV_TOKEN: z.string().optional(),

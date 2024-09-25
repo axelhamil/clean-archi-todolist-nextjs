@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
-import { createTodoAction } from "@/app/(todo)/todo.action";
+import { createTodoAction } from "@/app/(todo)/_actions/createTodo.action";
 
 import { Button } from "../../_components/ui/button";
 

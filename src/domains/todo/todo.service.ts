@@ -9,14 +9,14 @@ import { DomainError } from "@/src/shared/errors";
 import { createDomainEvent } from "@/src/shared/events/domainEvent";
 
 export type CreateTodo = (schema: TodoInsert, id?: string) => Todo;
-export const createTodo: CreateTodo = (schema, id = randomUUID()) => {
+export const createTodo: CreateTodo = (input, id = randomUUID()) => {
   const todoData = {
-    completed: schema.completed,
+    completed: input.completed,
     id,
     points: 5,
-    todo: schema.todo,
+    todo: input.todo,
     updatedAt: new Date(),
-    userId: schema.userId,
+    userId: input.userId,
   };
 
   const { data, error: inputParseError } = todoSchema.safeParse(todoData);
@@ -31,6 +31,7 @@ export const createTodo: CreateTodo = (schema, id = randomUUID()) => {
   return data;
 };
 
+export type ToggleTodo = (todo: Todo) => Todo;
 export const toggleTodo = (todo: Todo): Todo => {
   const { data, error: inputParseError } = todoSchema.safeParse({
     ...todo,

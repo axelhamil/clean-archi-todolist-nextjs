@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent, CardHeader } from "@/app/_components/ui/card";
-import { logoutAction } from "@/app/(auth)/login/login.action";
-import CreateTodoForm from "@/app/(todo)/_components/createTodo.form";
+import { logoutAction } from "@/app/(auth)/_actions/logout.action";
 import ListTodos from "@/app/(todo)/_components/listTodos";
+import CreateTodoForm from "@/app/(todo)/_forms/createTodo.form";
 import { SESSION_COOKIE } from "@/common/di";
 import { getTodosController } from "@/src/adapters/controllers/getTodos.controller";
 import { AuthenticateError, UnauthorizedError } from "@/src/shared/errors";

@@ -18,11 +18,11 @@ import {
 import { Input } from "@/app/_components/ui/input";
 import { Separator } from "@/app/_components/ui/separator";
 import { TypographyP } from "@/app/_components/ui/typographyP";
-import { loginAction } from "@/app/(auth)/login/login.action";
+import { loginAction } from "@/app/(auth)/_actions/login.action";
 
 const formSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters long"),
+  email: z.string().email(),
+  password: z.string().min(6),
 });
 
 export default function LoginForm(): ReactElement {
