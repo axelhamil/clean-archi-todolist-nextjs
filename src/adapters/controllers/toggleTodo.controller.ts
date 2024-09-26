@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { getInjection } from "@/common/di";
 import { toggleTodoUseCase } from "@/src/application/use-cases/toggleTodo.use-case";
-import { Todo } from "@/src/domains/todo/todo.entity";
+import { Todo, TodoCompleted } from "@/src/domains/todo/todo.entity";
 import { InputParseError, UnauthorizedError } from "@/src/shared/errors";
 
 const presenter = (data: Todo) => {
@@ -15,7 +15,9 @@ const presenter = (data: Todo) => {
     () => ({
       completed: data.completed,
       createdAt: data?.createdAt ?? undefined,
+      description: data.description,
       id: data.id,
+      priority: data.priority,
       title: data.title,
       updatedAt: data?.updatedAt ?? undefined,
       userId: data.userId,
@@ -23,7 +25,10 @@ const presenter = (data: Todo) => {
   );
 };
 
-const toggleTodoInputSchema = z.object({ id: z.string().min(1) });
+const toggleTodoInputSchema = z.object({
+  completed: z.nativeEnum(TodoCompleted),
+  id: z.string().min(1),
+});
 export type ToggleTodoInput = z.infer<typeof toggleTodoInputSchema>;
 export async function toggleTodoController(
   input: ToggleTodoInput,

@@ -8,20 +8,20 @@ import CreateTodoForm from "@/app/(todo)/_forms/createTodo.form";
 
 function HomePage() {
   return (
-    <main className={"flex size-full items-center justify-center"}>
-      <form className={"absolute left-5 top-2"} action={logoutAction}>
-        <Button variant={"destructive"} type={"submit"}>
+    <main className="flex h-screen w-screen items-center justify-center">
+      <form className="absolute left-5 top-2" action={logoutAction}>
+        <Button variant="destructive" type="submit">
           <LogOut />
         </Button>
       </form>
-      <Card className={"h-1/2 w-2/4"}>
+      <Card className="h-3/4 w-full max-w-3xl p-4 sm:h-2/3">
         <CardHeader>
-          <h1>Todo List</h1>
+          <h1 className="text-xl font-bold">Todo List</h1>
         </CardHeader>
         <CardContent>
           <CreateTodoForm />
         </CardContent>
-        <CardContent>
+        <CardContent className="h-3/4 overflow-y-auto">
           <ListTodos />
         </CardContent>
       </Card>

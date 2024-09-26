@@ -15,7 +15,9 @@ const presenter = (data: Todo[]) => {
       data.map((d) => ({
         completed: d.completed,
         createdAt: d?.createdAt ?? undefined,
+        description: d.description,
         id: d.id,
+        priority: d.priority,
         title: d.title,
         updatedAt: d?.updatedAt ?? undefined,
         userId: d.userId,

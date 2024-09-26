@@ -1,5 +1,5 @@
 import { captureException, startSpan } from "@sentry/nextjs";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { injectable } from "inversify";
 
 import { db } from "@/common/db";
@@ -172,7 +172,16 @@ export class TodoRepoImpl implements ITodoRepo {
       async () => {
         try {
           const query = db.query.todos.findMany({
-            orderBy: (todos, { asc }) => asc(todos.createdAt),
+            // by priority LOW MEDIUM HIGHa
+            orderBy: (todos, { asc }) =>
+              asc(
+                sql`CASE
+                    WHEN ${todos.priority} = 'HIGH' THEN 1
+                    WHEN ${todos.priority} = 'MEDIUM' THEN 2
+                    WHEN ${todos.priority} = 'LOW' THEN 3
+                    ELSE 4
+                  END`,
+              ),
             where: (todos, { eq }) => eq(todos.userId, userId),
           });
 

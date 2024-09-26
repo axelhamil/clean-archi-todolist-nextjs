@@ -1,10 +1,13 @@
 import {
-  boolean,
+  pgEnum,
   pgTable,
+  text,
   timestamp,
   uuid,
   varchar,
 } from "drizzle-orm/pg-core";
+
+import { TodoCompleted, TodoPriority } from "@/src/domains/todo/todo.entity";
 
 export const users = pgTable("users", {
   createdAt: timestamp("created_at", {
@@ -56,8 +59,19 @@ export const sessions = pgTable("sessions", {
     .references(() => users.id),
 });
 
+export const completedEnum = pgEnum("completed", [
+  TodoCompleted.TODO,
+  TodoCompleted.IN_PROGRESS,
+  TodoCompleted.DONE,
+]);
+export const priorityEnum = pgEnum("priority", [
+  TodoPriority.LOW,
+  TodoPriority.MEDIUM,
+  TodoPriority.HIGH,
+]);
+
 export const todos = pgTable("todos", {
-  completed: boolean("completed").default(false).notNull(),
+  completed: completedEnum("completed"),
   createdAt: timestamp("created_at", {
     mode: "date",
     precision: 3,
@@ -65,7 +79,9 @@ export const todos = pgTable("todos", {
   })
     .defaultNow()
     .notNull(),
+  description: text("description").default("").notNull(),
   id: uuid("id").defaultRandom().unique().primaryKey(),
+  priority: priorityEnum("priority"),
   title: varchar("title", {
     length: 255,
   }).notNull(),

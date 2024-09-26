@@ -16,16 +16,23 @@ import {
 } from "@/app/_components/ui/form";
 import { Input } from "@/app/_components/ui/input";
 import { createTodoAction } from "@/app/(todo)/_actions/createTodo.action";
+import { TodoCompleted, TodoPriority } from "@/src/domains/todo/todo.entity";
 
 import { Button } from "../../_components/ui/button";
 
 const formSchema = z.object({
+  completed: z.nativeEnum(TodoCompleted),
+  description: z.string().optional(),
+  priority: z.nativeEnum(TodoPriority),
   title: z.string().min(1),
 });
 
 export default function CreateTodoForm(): ReactElement {
   const form = useForm<z.infer<typeof formSchema>>({
     defaultValues: {
+      completed: TodoCompleted.TODO,
+      description: "",
+      priority: TodoPriority.LOW,
       title: "",
     },
     resolver: zodResolver(formSchema),

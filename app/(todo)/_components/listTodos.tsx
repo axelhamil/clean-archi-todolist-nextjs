@@ -40,25 +40,29 @@ export default async function ListTodos(): Promise<ReactElement> {
   const todos = await getTodos();
 
   return (
-    <ul>
+    <ul className="space-y-4">
       {todos.map((todo) => (
         <li
           key={todo.id}
-          className="m-2 flex items-center justify-center gap-5"
+          className="flex flex-col items-start gap-6 rounded-lg bg-white p-4 shadow-md transition hover:bg-gray-50 sm:flex-row sm:items-center sm:justify-between"
         >
-          <div className="flex w-1/4 items-center gap-5">
-            <ToggleTodoForm completed={todo.completed} id={todo.id} />
+          <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
             <Label
               htmlFor={`todo-${todo.id}`}
               className={cn(
-                "text-md w-fit cursor-pointer hover:scale-105",
-                todo.completed && "text-sm text-gray-400 line-through",
+                "cursor-pointer text-lg font-semibold",
+                "hover:underline",
               )}
             >
               {todo.title}
             </Label>
+            <div className="text-sm text-gray-500">{todo.description}</div>
+            <div className="text-xs text-gray-400">{todo.priority}</div>
           </div>
-          <DeleteTodoForm id={todo.id} />
+          <div className="flex items-center gap-4">
+            <ToggleTodoForm completed={todo.completed} id={todo.id} />
+            <DeleteTodoForm id={todo.id} />
+          </div>
         </li>
       ))}
     </ul>

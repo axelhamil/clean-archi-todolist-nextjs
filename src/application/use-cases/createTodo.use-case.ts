@@ -1,11 +1,20 @@
 import { startSpan } from "@sentry/nextjs";
 
 import { getInjection } from "@/common/di";
-import { Todo } from "@/src/domains/todo/todo.entity";
+import {
+  Todo,
+  TodoCompleted,
+  TodoPriority,
+} from "@/src/domains/todo/todo.entity";
 import { createTodo } from "@/src/domains/todo/todo.service";
 
 export const createTodoUseCase = async (
-  input: { title: string },
+  input: {
+    title: string;
+    description?: string;
+    completed?: TodoCompleted;
+    priority?: TodoPriority;
+  },
   userId: string,
 ): Promise<Todo> => {
   return startSpan(
@@ -17,8 +26,7 @@ export const createTodoUseCase = async (
       const todoRepo = getInjection("ITodoRepo");
 
       const newTodo = createTodo({
-        completed: false,
-        title: input.title,
+        ...input,
         userId,
       });
 
