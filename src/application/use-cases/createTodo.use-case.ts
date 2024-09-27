@@ -30,9 +30,9 @@ export const createTodoUseCase = async (
         userId,
       });
 
-      const todo = await todoRepo.create(newTodo);
+      await todoRepo.create(newTodo);
 
-      return todo;
+      return newTodo;
     },
   );
 };

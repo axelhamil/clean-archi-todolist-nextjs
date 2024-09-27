@@ -172,7 +172,6 @@ export class TodoRepoImpl implements ITodoRepo {
       async () => {
         try {
           const query = db.query.todos.findMany({
-            // by priority LOW MEDIUM HIGHa
             orderBy: (todos, { asc }) =>
               asc(
                 sql`CASE

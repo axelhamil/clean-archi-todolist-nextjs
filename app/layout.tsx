@@ -5,6 +5,7 @@ import { Inter as FontSans } from "next/font/google";
 import { ReactNode } from "react";
 
 import { Toaster } from "@/app/_components/ui/sonner";
+import { cn } from "@/app/_components/utils";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,8 +23,12 @@ export default async function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} h-screen font-sans antialiased`}>
+    <html lang="en" className={"h-full"}>
+      <body
+        className={cn(
+          `${fontSans.variable} h-full w-full font-sans antialiased`,
+        )}
+      >
         {children}
         <Toaster />
       </body>

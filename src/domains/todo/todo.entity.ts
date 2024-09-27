@@ -18,7 +18,8 @@ export const todoSchema = entitySchema.extend({
     .default(TodoCompleted.TODO)
     .optional()
     .nullable(),
-  description: z.string().default(""),
+  description: z.string().default("").optional().nullable(),
+  listId: z.string().optional().nullable(),
   priority: z
     .nativeEnum(TodoPriority)
     .default(TodoPriority.MEDIUM)
@@ -30,6 +31,7 @@ export const todoSchema = entitySchema.extend({
 export const insertTodoSchema = todoSchema.pick({
   completed: true,
   description: true,
+  listId: true,
   priority: true,
   title: true,
   userId: true,

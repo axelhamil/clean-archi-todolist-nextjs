@@ -47,3 +47,21 @@ export const toggleTodo: ToggleTodo = (oldTodo, toggleData) => {
 
   return data;
 };
+
+export type AddTodoIntoList = (todo: Todo, listId: string) => Todo;
+export const addTodoIntoList: AddTodoIntoList = (todo, listId) => {
+  const { data, error: inputParseError } = todoSchema.safeParse({
+    ...todo,
+    listId,
+    updatedAt: new Date(),
+  } as Todo);
+
+  if (inputParseError)
+    throw new DomainError("Invalid data", {
+      cause: inputParseError.errors,
+    });
+
+  createDomainEvent(data, todoCreatedEventSchema);
+
+  return data;
+};

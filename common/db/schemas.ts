@@ -59,6 +59,30 @@ export const sessions = pgTable("sessions", {
     .references(() => users.id),
 });
 
+export const lists = pgTable("lists", {
+  createdAt: timestamp("created_at", {
+    mode: "date",
+    precision: 3,
+    withTimezone: true,
+  })
+    .defaultNow()
+    .notNull(),
+  id: uuid("id").defaultRandom().unique().primaryKey(),
+  name: varchar("name", {
+    length: 255,
+  }).notNull(),
+  updatedAt: timestamp("updated_at", {
+    mode: "date",
+    precision: 3,
+    withTimezone: true,
+  })
+    .$onUpdate(() => new Date())
+    .notNull(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id),
+});
+
 export const completedEnum = pgEnum("completed", [
   TodoCompleted.TODO,
   TodoCompleted.IN_PROGRESS,
@@ -79,8 +103,9 @@ export const todos = pgTable("todos", {
   })
     .defaultNow()
     .notNull(),
-  description: text("description").default("").notNull(),
+  description: text("description").default(""),
   id: uuid("id").defaultRandom().unique().primaryKey(),
+  listId: uuid("list_id").references(() => lists.id),
   priority: priorityEnum("priority"),
   title: varchar("title", {
     length: 255,

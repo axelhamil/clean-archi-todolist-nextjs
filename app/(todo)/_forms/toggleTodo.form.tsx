@@ -24,7 +24,7 @@ import { TodoCompleted } from "@/src/domains/todo/todo.entity";
 
 interface IToggleTodoFormProps {
   id: string;
-  completed?: TodoCompleted;
+  completed?: TodoCompleted | null;
 }
 
 const formSchema = z.object({

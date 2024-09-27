@@ -1,11 +1,11 @@
 import { startSpan } from "@sentry/nextjs";
 
 import { getInjection } from "@/common/di";
-import { getAllTodosUseCase } from "@/src/application/use-cases/getAllTodos.use-case";
-import { Todo } from "@/src/domains/todo/todo.entity";
+import { getAllListUseCase } from "@/src/application/use-cases/getAllList.use-case";
+import { List } from "@/src/domains/list/list.entity";
 import { UnauthorizedError } from "@/src/shared/errors";
 
-const presenter = (data: Todo[]) => {
+const presenter = (data: List[]) => {
   return startSpan(
     {
       name: "createTodo presenter",
@@ -13,25 +13,22 @@ const presenter = (data: Todo[]) => {
     },
     () =>
       data.map((d) => ({
-        completed: d.completed,
         createdAt: d?.createdAt ?? undefined,
-        description: d.description,
         id: d.id,
-        priority: d.priority,
-        title: d.title,
+        name: d.name,
         updatedAt: d?.updatedAt ?? undefined,
         userId: d.userId,
       })),
   );
 };
 
-export type GetTodosController = (
+export type GetListsController = (
   sessionId: string | undefined,
 ) => Promise<ReturnType<typeof presenter>>;
-export const getTodosController: GetTodosController = async (sessionId) => {
+export const getListsController: GetListsController = async (sessionId) => {
   return await startSpan(
     {
-      name: "getTodos controller",
+      name: "getLists controller",
       op: "controller",
     },
     async () => {
@@ -39,7 +36,7 @@ export const getTodosController: GetTodosController = async (sessionId) => {
       const authService = getInjection("AuthService");
       const { user } = await authService.validateSession(sessionId);
 
-      const result = await getAllTodosUseCase(user.id);
+      const result = await getAllListUseCase(user.id);
 
       return presenter(result);
     },
