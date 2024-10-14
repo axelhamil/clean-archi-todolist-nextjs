@@ -6,9 +6,10 @@ export const listSchema = entitySchema.extend({
   name: z.string(),
   userId: z.string(),
 });
-export const insertListSchema = listSchema.pick({
-  name: true,
-  userId: true,
+export const insertListSchema = listSchema.omit({
+  createdAt: true,
+  id: true,
+  updatedAt: true,
 });
 
 export type List = z.infer<typeof listSchema>;

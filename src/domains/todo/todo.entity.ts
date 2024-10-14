@@ -28,13 +28,10 @@ export const todoSchema = entitySchema.extend({
   title: z.string(),
   userId: z.string(),
 });
-export const insertTodoSchema = todoSchema.pick({
-  completed: true,
-  description: true,
-  listId: true,
-  priority: true,
-  title: true,
-  userId: true,
+export const insertTodoSchema = todoSchema.omit({
+  createdAt: true,
+  id: true,
+  updatedAt: true,
 });
 
 export type Todo = z.infer<typeof todoSchema>;

@@ -5,18 +5,10 @@ import { domainEventSchema } from "@/src/shared/events/domainEvent";
 
 export const todoCreatedEventSchema = domainEventSchema.extend({
   payload: todoSchema,
-  timestamp: z
-    .date()
-    .optional()
-    .default(() => new Date()),
   type: z.literal("TODO_CREATED").default("TODO_CREATED"),
 });
 export const todoCompletedEventSchema = domainEventSchema.extend({
   payload: todoSchema,
-  timestamp: z
-    .date()
-    .optional()
-    .default(() => new Date()),
   type: z.literal("TODO_COMPLETED").default("TODO_COMPLETED"),
 });
 
