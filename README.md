@@ -12,6 +12,9 @@ This experimental approach helps me explore how to modernize and streamline arch
 I also chose DrizzleORM for database management due to its simplicity and type safety, which aligns well with the principles of 
 functional and clean architecture that I'm aiming to apply.
 
+**Warning**: This is an experimental project and not recommended for production use. With reflect-metadata you
+cannot use nextjs middleware because of the edge runtime. This project is for educational purposes only.
+
 ---
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
