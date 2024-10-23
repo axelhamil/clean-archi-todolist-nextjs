@@ -37,7 +37,7 @@ const createTodoInputSchema = z.object({
 });
 export type CreateTodoInput = z.infer<typeof createTodoInputSchema>;
 export async function createTodoController(
-  input: CreateTodoInput,
+  dto: CreateTodoInput,
   sessionId: string | undefined,
 ): Promise<ReturnType<typeof presenter>> {
   return await startSpan(
@@ -51,7 +51,7 @@ export async function createTodoController(
       const { user } = await authService.validateSession(sessionId);
 
       const { data, error: inputParseError } =
-        createTodoInputSchema.safeParse(input);
+        createTodoInputSchema.safeParse(dto);
 
       if (inputParseError)
         throw new InputParseError("Invalid data", {

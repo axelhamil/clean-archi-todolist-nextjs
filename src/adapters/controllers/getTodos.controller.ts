@@ -45,3 +45,7 @@ export const getTodosController: GetTodosController = async (sessionId) => {
     },
   );
 };
+
+// query page -> getTodoListcontroller (verifie que le token exist, decode le token, il verifie si le token est valide, est return le user)
+
+// controller -> service user du token ->

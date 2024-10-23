@@ -22,6 +22,12 @@ export class ConflictError extends Error {
   }
 }
 
+export class FirebaseError extends Error {
+  constructor(message: string, options?: ErrorOptions) {
+    super(message, options);
+  }
+}
+
 export class InputParseError extends Error {
   constructor(message: string, options?: ErrorOptions) {
     super(message, options);

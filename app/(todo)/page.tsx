@@ -1,3 +1,16 @@
+import { cookies } from "next/headers";
+
+import { getTodosController } from "@/src/adapters/controllers/getTodos.controller";
+
+const getTodosList = async () => {
+  const token = cookies.get("token").value;
+  try {
+    const todos = getTodosController(token);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 function HomePage() {
   return (
     <section className="flex size-full items-center justify-center">
